@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="20dp" android:layout_width="match_parent" android:layout_height="match_parent">
+    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_horizontal">
+        <TextView android:text="🥗 SmartDiet AI" android:textSize="28sp" android:textStyle="bold" android:layout_marginBottom="20dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <Button android:id="@+id/btnBMI" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="BMI &amp; Profile"/>
+        <Button android:id="@+id/btnAddFood" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Food" android:layout_marginTop="8dp"/>
+        <Button android:id="@+id/btnViewFoods" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Food Catalog" android:layout_marginTop="8dp"/>
+        <Button android:id="@+id/btnAddMeal" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Meal" android:layout_marginTop="8dp"/>
+        <Button android:id="@+id/btnViewMeals" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Today's Meals" android:layout_marginTop="8dp"/>
+        <Button android:id="@+id/btnAIPlan" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="AI Diet Plan" android:layout_marginTop="8dp"/>
+        <Button android:id="@+id/btnReminders" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Reminders" android:layout_marginTop="8dp"/>
+    </LinearLayout>
+</ScrollView>
