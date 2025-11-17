@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4FFF8">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="SmartDiet AI"
+            android:textColor="#2E7D32"
+            android:textStyle="bold"
+            android:textSize="28sp"
+            android:gravity="center"
+            android:paddingBottom="16dp" />
+
+        <Button
+            android:id="@+id/btnBMI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="BMI Calculator"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnAddFood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Food"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnFoodList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Food List"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnAddMeal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Meal"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnViewMeals"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="View Meals"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnAIPlan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="AI Plan"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnReminders"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Reminders"
+            android:padding="12dp"
+            android:layout_marginBottom="12dp" />
+
+    </LinearLayout>
+</ScrollView>
