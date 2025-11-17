@@ -4,14 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.widget.*;
+import java.util.Locale;
 
 public class BMIActivity extends AppCompatActivity {
 
     EditText weightInput, heightInput, ageInput;
     RadioGroup genderGroup;
-    Button calculateBtn, saveProfileBtn;
+    Button calculateBtn;
     TextView resultText;
     DatabaseHelper db;
+    FoodDatabaseHelper foodDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +21,12 @@ public class BMIActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bmi);
 
         db = new DatabaseHelper(this);
+        foodDb = new FoodDatabaseHelper(this);
         weightInput = findViewById(R.id.weightInput);
         heightInput = findViewById(R.id.heightInput);
         ageInput = findViewById(R.id.ageInput);
         genderGroup = findViewById(R.id.genderGroup);
         calculateBtn = findViewById(R.id.calculateBtn);
-        saveProfileBtn = findViewById(R.id.saveProfileBtn);
         resultText = findViewById(R.id.resultText);
 
         loadProfileIfExists();
@@ -44,26 +46,35 @@ public class BMIActivity extends AppCompatActivity {
 
                 double calories = CalorieCalculator.dailyCalorieTarget(age, (height*100), weight, gender, "moderate", "maintain");
 
-                resultText.setText(String.format("BMI: %.2f (%s)\nEstimated target: %.0f kcal/day", bmi, category, calories));
+                // Save the calculated calorie target to both databases
+                int calorieTarget = (int) Math.round(calories);
+                db.updateCalorieTarget(calorieTarget);
+                foodDb.updateCalorieTarget(calorieTarget);
+
+                // Calculate weight recommendations
+                double healthyMinWeight = 18.5 * (height * height);
+                double healthyMaxWeight = 24.9 * (height * height);
+
+                StringBuilder result = new StringBuilder();
+                result.append(String.format(Locale.getDefault(), "BMI: %.2f (%s)\n", bmi, category));
+                result.append(String.format(Locale.getDefault(), "Estimated target: %.0f kcal/day\n", calories));
+
+                if (bmi < 18.5) {
+                    // Underweight - need to gain
+                    double weightToGain = healthyMinWeight - weight;
+                    result.append(String.format(Locale.getDefault(), "\n⬆️ Gain %.1f kg to reach healthy weight", weightToGain));
+                } else if (bmi >= 25) {
+                    // Overweight or Obese - need to lose
+                    double weightToLose = weight - healthyMaxWeight;
+                    result.append(String.format(Locale.getDefault(), "\n⬇️ Lose %.1f kg to reach healthy weight", weightToLose));
+                } else {
+                    // Normal weight
+                    result.append("\n✅ You are in the healthy weight range!");
+                }
+
+                resultText.setText(result.toString());
             } catch (Exception ex) {
                 Toast.makeText(this, "Please fill valid numbers", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        saveProfileBtn.setOnClickListener(v -> {
-            try {
-                String name = "You";
-                int age = Integer.parseInt(ageInput.getText().toString());
-                double height = Double.parseDouble(heightInput.getText().toString());
-                double weight = Double.parseDouble(weightInput.getText().toString());
-                int selectedId = genderGroup.getCheckedRadioButtonId();
-                String gender = (selectedId == R.id.maleRadio) ? "male" : "female";
-                String activity = "moderate";
-                String goal = "maintain";
-                db.saveProfile(name, age, height, weight, gender, activity, goal);
-                Toast.makeText(this, "Profile saved", Toast.LENGTH_SHORT).show();
-            } catch (Exception ex) {
-                Toast.makeText(this, "Please enter valid values to save profile", Toast.LENGTH_SHORT).show();
             }
         });
     }

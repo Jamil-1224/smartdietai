@@ -1,41 +1,64 @@
 package com.example.smartdietai;
 
+import android.Manifest;
+import android.content.*;
+
+import androidx.annotation.RequiresPermission;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+
+import com.example.smartdietai.R;
+
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
-import androidx.core.app.NotificationCompat;
 
 public class ReminderReceiver extends BroadcastReceiver {
-    public static final String CHANNEL_ID = "smartdiet_channel";
-
+    @RequiresPermission(Manifest.permission.POST_NOTIFICATIONS)
     @Override
     public void onReceive(Context context, Intent intent) {
-        String title = intent.getStringExtra("title");
-        createChannel(context);
+        try {
+            if (intent == null) return;
 
-        Intent i = new Intent(context, MainActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(context, 0, i, PendingIntent.FLAG_IMMUTABLE);
+            String title = intent.getStringExtra("title");
+            if (title == null || title.isEmpty()) title = "Diet Reminder";
+            int id = intent.getIntExtra("id", 100);
+            int hour = intent.getIntExtra("hour", -1);
+            int minute = intent.getIntExtra("minute", -1);
 
-        NotificationCompat.Builder nb = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(android.R.drawable.ic_dialog_info)
-                .setContentTitle("Reminder: " + title)
-                .setContentText("Time for: " + title)
-                .setContentIntent(pi)
-                .setAutoCancel(true);
+            // Ensure channel exists even if app wasn't launched
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                NotificationChannel channel = new NotificationChannel("dietReminder", "Diet Reminder", NotificationManager.IMPORTANCE_DEFAULT);
+                channel.setDescription("Reminders for healthy diet and meals");
+                NotificationManager manager = (NotificationManager) context.getSystemService(NotificationManager.class);
+                if (manager != null) manager.createNotificationChannel(channel);
+            }
 
-        NotificationManager nm = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (nm != null) nm.notify((int) System.currentTimeMillis(), nb.build());
-    }
+            Intent tapIntent = new Intent(context, ReminderActivity.class);
+            PendingIntent contentPI = PendingIntent.getActivity(context, id, tapIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-    private void createChannel(Context ctx) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel nc = new NotificationChannel(CHANNEL_ID, "SmartDiet Reminders", NotificationManager.IMPORTANCE_DEFAULT);
-            NotificationManager nm = ctx.getSystemService(NotificationManager.class);
-            if (nm != null) nm.createNotificationChannel(nc);
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "dietReminder")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentTitle(title)
+                    .setContentText("Time to eat healthy! Don’t skip your meal.")
+                    .setAutoCancel(true)
+                    .setContentIntent(contentPI)
+                    .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+            try {
+                NotificationManagerCompat manager = NotificationManagerCompat.from(context);
+                manager.notify(id, builder.build());
+            } catch (SecurityException se) {
+                // Ignore if notification permission not granted yet
+            }
+
+            // Reschedule for next day at the same time
+            if (hour >= 0 && minute >= 0) {
+                ReminderHelper.scheduleReminder(context, id, title, hour, minute);
+            }
+        } catch (Exception e) {
+            // defensively catch any unexpected errors so the app won't crash
         }
     }
 }

@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import java.util.Calendar;
 
 public class ReminderHelper {
@@ -11,6 +12,9 @@ public class ReminderHelper {
     public static void scheduleReminder(Context ctx, int id, String title, int hour, int minute) {
         Intent intent = new Intent(ctx, ReminderReceiver.class);
         intent.putExtra("title", title);
+        intent.putExtra("hour", hour);
+        intent.putExtra("minute", minute);
+        intent.putExtra("id", id);
         PendingIntent pi = PendingIntent.getBroadcast(ctx, id, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         Calendar cal = Calendar.getInstance();
@@ -20,7 +24,14 @@ public class ReminderHelper {
         if (cal.before(Calendar.getInstance())) cal.add(Calendar.DAY_OF_MONTH, 1);
 
         AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-        if (am != null) am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pi);
+        if (am != null) {
+            long triggerAt = cal.getTimeInMillis();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                am.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, triggerAt, pi);
+            } else {
+                am.setExact(AlarmManager.RTC_WAKEUP, triggerAt, pi);
+            }
+        }
     }
 
     public static void cancelReminder(Context ctx, int id) {

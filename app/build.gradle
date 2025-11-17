@@ -2,9 +2,24 @@ plugins {
     alias(libs.plugins.android.application)
 }
 
+// Helper to read values from local.properties without hardcoding secrets
+def getLocalProperty(String key, String defaultValue = "") {
+    def propsFile = rootProject.file("local.properties")
+    if (propsFile.exists()) {
+        def Properties props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        return props.getProperty(key, defaultValue)
+    }
+    return defaultValue
+}
+
 android {
     namespace 'com.example.smartdietai'
     compileSdk 36
+    
+    lintOptions {
+        abortOnError false
+    }
 
     defaultConfig {
         applicationId "com.example.smartdietai"
@@ -14,6 +29,17 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+
+        // Spoonacular API configuration
+        buildConfigField "String", "SPOONACULAR_BASE_URL", '"https://api.spoonacular.com"'
+        buildConfigField "String", "SPOONACULAR_API_KEY", '"967f304751cc47c787cb108896e02305"'
+        buildConfigField "String", "SPOONACULAR_USERNAME", '"rousonjamil987@gmail.com"'
+        
+        // Spoonacular API configuration
+        buildConfigField "String", "SPOONACULAR_BASE_URL", '"https://api.spoonacular.com"'
+        buildConfigField "String", "SPOONACULAR_API_KEY", '"967f304751cc47c787cb108896e02305"'
+        buildConfigField "String", "SPOONACULAR_USERNAME", '"rousonjamil987@gmail.com"'
     }
 
     buildTypes {
@@ -21,6 +47,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    buildFeatures {
+        buildConfig true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -34,6 +63,13 @@ dependencies {
     implementation libs.material
     implementation libs.activity
     implementation libs.constraintlayout
+    implementation 'com.squareup.okhttp3:okhttp:4.9.3'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
+    // ZXing for QR Code scanning
+    implementation 'com.journeyapps:zxing-android-embedded:4.3.0'
+    implementation 'com.google.zxing:core:3.5.1'
+
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core

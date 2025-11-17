@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:background="#F4FFF8"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="🍎 Spoonacular Meal Plan"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_marginBottom="20dp"
+            android:gravity="center" />
+
+        <!-- Profile header (text-only on this screen) -->
+        <LinearLayout
+            android:id="@+id/profileHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:background="#E8F5E9"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:id="@+id/headerName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name: —"
+                android:textSize="16sp"
+                android:textColor="#2E7D32" />
+
+            <TextView
+                android:id="@+id/headerMeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Age • Gender • Height • Weight"
+                android:textSize="14sp"
+                android:textColor="#555" />
+        </LinearLayout>
+
+        <!-- Input fields -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+
+            <EditText
+                android:id="@+id/inputCalories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Enter your daily calorie goal (e.g., 2000)"
+                android:inputType="number"
+                android:padding="14dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:layout_marginBottom="10dp" />
+
+            <Spinner
+                android:id="@+id/spinnerDiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="14dp"
+                android:background="@drawable/rounded_edittext"
+                android:layout_marginBottom="10dp" />
+
+            <EditText
+                android:id="@+id/inputExclude"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Exclude ingredients (comma separated)"
+                android:inputType="text"
+                android:padding="14dp"
+                android:background="@drawable/rounded_edittext"
+                android:textColor="#000000"
+            android:textSize="16sp" />
+        </LinearLayout>
+
+        <!-- Suggest button -->
+        <Button
+            android:id="@+id/btnSuggest"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Get Meal Plan"
+            android:textAllCaps="false"
+            android:backgroundTint="#43A047"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"
+            android:padding="12dp"
+            android:layout_marginBottom="25dp"
+            android:fontFamily="sans-serif-medium" />
+            
+        <!-- Saved Meals Section -->
+        <TextView
+            android:id="@+id/savedMealsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Saved Meals"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/savedMealsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="false" />
+
+        <TextView
+            android:id="@+id/noSavedMealsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No saved meals yet"
+            android:textSize="16sp"
+            android:textColor="#757575"
+            android:gravity="center"
+            android:padding="16dp"
+            android:visibility="gone" />
+
+        <!-- Progress indicator -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginBottom="15dp" />
+
+        <!-- Meal cards container -->
+        <LinearLayout
+            android:id="@+id/mealCardsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <!-- Breakfast card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Breakfast"
+                        android:textStyle="bold"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/breakfastText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Lunch card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Lunch"
+                        android:textStyle="bold"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/lunchText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Dinner card -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Dinner"
+                        android:textStyle="bold"
+                        android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/dinnerText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- Result area -->
+        <TextView
+            android:id="@+id/txtResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Your meal plan will appear here..."
+            android:textSize="16sp"
+            android:padding="15dp"
+            android:background="@drawable/rounded_resultbox"
+            android:textColor="#333333" />
+    </LinearLayout>
+</ScrollView>

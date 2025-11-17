@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+
+
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
+
 
     <application
         android:allowBackup="true"
@@ -11,6 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Smartdietai">
+
+        <receiver android:name=".ReminderReceiver" android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -26,9 +38,18 @@
         <activity android:name=".FoodListActivity" />
         <activity android:name=".AddMealActivity" />
         <activity android:name=".MealsListActivity" />
-        <activity android:name=".AIDietActivity" />
+        <activity android:name=".DietSuggestionActivity" />
         <activity android:name=".ReminderActivity" />
-        <receiver android:name=".ReminderReceiver" />
+        <activity android:name=".ProfileActivity" />
+
+        <!-- ZXing Barcode Scanner Activity - Vertical/Portrait -->
+        <activity
+            android:name="com.journeyapps.barcodescanner.CaptureActivity"
+            android:screenOrientation="portrait"
+            android:stateNotNeeded="true"
+            android:theme="@style/zxing_CaptureTheme"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:replace="screenOrientation" />
     </application>
 
 </manifest>

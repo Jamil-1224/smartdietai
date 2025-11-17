@@ -1,14 +1,216 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="20dp" android:layout_width="match_parent" android:layout_height="match_parent">
-    <LinearLayout android:orientation="vertical" android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_horizontal">
-        <TextView android:text="🥗 SmartDiet AI" android:textSize="28sp" android:textStyle="bold" android:layout_marginBottom="20dp" android:layout_width="wrap_content" android:layout_height="wrap_content"/>
-        <Button android:id="@+id/btnBMI" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="BMI &amp; Profile"/>
-        <Button android:id="@+id/btnAddFood" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Food" android:layout_marginTop="8dp"/>
-        <Button android:id="@+id/btnViewFoods" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Food Catalog" android:layout_marginTop="8dp"/>
-        <Button android:id="@+id/btnAddMeal" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Add Meal" android:layout_marginTop="8dp"/>
-        <Button android:id="@+id/btnViewMeals" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Today's Meals" android:layout_marginTop="8dp"/>
-        <Button android:id="@+id/btnAIPlan" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="AI Diet Plan" android:layout_marginTop="8dp"/>
-        <Button android:id="@+id/btnReminders" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Reminders" android:layout_marginTop="8dp"/>
+    xmlns:cardView="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4FFF8"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Title -->
+        <TextView
+            android:text="🥗 SmartDiet AI"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="#2E7D32"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="12dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <!-- ✅ Your Existing Cards Start -->
+        <!-- Row 1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="12dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardBMI"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                cardView:cardCornerRadius="16dp"
+                cardView:cardElevation="6dp"
+                cardView:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="BMI" android:textSize="18sp" android:textColor="#333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardAddFood"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                cardView:cardCornerRadius="16dp"
+                cardView:cardElevation="6dp"
+                cardView:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Add Food" android:textSize="18sp" android:textColor="#333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- Row 2 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="12dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFoodList"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                cardView:cardCornerRadius="16dp"
+                cardView:cardElevation="6dp"
+                cardView:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Food Catalog" android:textSize="16sp" android:textColor="#333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardAddMeal"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                cardView:cardCornerRadius="16dp"
+                cardView:cardElevation="6dp"
+                cardView:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Add Meal" android:textSize="16sp" android:textColor="#333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- Row 3 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_marginBottom="12dp">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMealsList"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                cardView:cardCornerRadius="16dp"
+                cardView:cardElevation="6dp"
+                cardView:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Today's Meals" android:textSize="16sp" android:textColor="#333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardAIPlan"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                cardView:cardCornerRadius="16dp"
+                cardView:cardElevation="6dp"
+                cardView:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="12dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="AI Diet Plan" android:textSize="16sp" android:textColor="#333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <!-- Row 4 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardReminders"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                cardView:cardCornerRadius="16dp"
+                cardView:cardElevation="6dp"
+                cardView:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Reminders" android:textSize="18sp" android:textColor="#333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProfile"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                cardView:cardCornerRadius="16dp"
+                cardView:cardElevation="6dp"
+                cardView:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Profile" android:textSize="18sp" android:textColor="#333"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
